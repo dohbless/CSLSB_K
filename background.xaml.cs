@@ -21,14 +21,15 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
         {
             public int x, y;
             public Pointt(int _x = 0, int _y = 0)
-            { x = _x; y = _y;
+            {
+                x = _x; y = _y;
             }
         }
         //这里是点的结构体 二维
         struct spPoint
         {
-            public float x, y ,z;
-            public spPoint(float _x = 0, float _y = 0,float _z=0) { x = _x; y = _y;z = _z; }
+            public float x, y, z;
+            public spPoint(float _x = 0, float _y = 0, float _z = 0) { x = _x; y = _y; z = _z; }
         }
         //新添加的 三维
 
@@ -168,8 +169,8 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         /// //私以为这里为为background拟遭一个展示例
-    
-    public background()
+
+        public background()
         {
             this.InitializeComponent();
             // initialize the components (controls) of the window
@@ -215,7 +216,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
             //this.bodyIndexBitmap = new WriteableBitmap(this.depthFrameDescription.Width, this.depthFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
             this.displayBitmap = new WriteableBitmap(this.depthFrameDescription.Width, this.depthFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
 
-            
+
 
 
 
@@ -306,7 +307,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
             // use the window object as the view model in this simple example
             this.DataContext = this;
             //没看懂，应该是程序问题，不学C#真的惨，咋学呢？？？？？？？
-          
+
 
 
             this.ShowMsg.Content = "请选择录入手语的模式！";
@@ -360,7 +361,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
             //真是令人忧伤
         }
 
-       
+
 
 
 
@@ -478,7 +479,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
             }
             //if (DepthdataReceived)
             //{
-                
+
             //}
             #endregion
 
@@ -534,7 +535,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                 }
             }
 
-            
+
 
             #endregion
             //可惜我不会日语，总之这些是处理数据的了
@@ -592,7 +593,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                         var kLT = joints[JointType.HandTipLeft].Position; //左手指尖
                         var dLT = this.coordinateMapper.MapCameraPointToDepthSpace(kLT);
 
-                        var kRT =joints[JointType.HandTipRight].Position;//右手指尖
+                        var kRT = joints[JointType.HandTipRight].Position;//右手指尖
                         var dRT = this.coordinateMapper.MapCameraPointToDepthSpace(kRT);
 
 
@@ -1053,19 +1054,19 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                                 // create frame from the writable bitmap and add to encoder
                                 encoder.Frames.Add(BitmapFrame.Create(this.displayBitmap));
 
-                                
+
 
                                 //string myPhotos = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                                 string myPhotos = @"D:/kinectkeep/";
                                 string path = Path.Combine(myPhotos, "KinectScreenshot-BodyIndex-" + time + ".png");
                                 time++;
                                 // write the new file to disk
-                                
-                                    // FileStream is IDisposable
-                                    using (FileStream fs = new FileStream(path, FileMode.Create))
-                                    {
-                                        encoder.Save(fs);
-                                    }         
+
+                                // FileStream is IDisposable
+                                using (FileStream fs = new FileStream(path, FileMode.Create))
+                                {
+                                    encoder.Save(fs);
+                                }
 
                             }
 
@@ -1107,7 +1108,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
             {
                 //double转int，对每一个宽度遍历
                 //width
-                for (int j = (int)(dLp.Y - LW_len / 2); j <= (int)(dLp.Y + LW_len / 2); j++) 
+                for (int j = (int)(dLp.Y - LW_len / 2); j <= (int)(dLp.Y + LW_len / 2); j++)
                 {
                     //height
                     if (j < yaoY)
@@ -1259,7 +1260,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                     null,
                     new Rect(0, this.displayHeight - ClipBoundsThickness, this.displayWidth, ClipBoundsThickness));
             }
-            
+
             if (clippedEdges.HasFlag(FrameEdges.Top))
             {
                 drawingContext.DrawRectangle(
@@ -1578,7 +1579,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
 
             int rwidthRefresh = rRect.Width;//暂时还未更新
             int rheightRefresh = rRect.Height;//兄弟我还不知道你要更新啥
-            
+
             int countleft = 0;//要不要来个countright？
             //还真有
             Boolean flagleft = false;
@@ -1602,7 +1603,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                     countleft++;
                 //检测从左第一列开始到第几列开始有元素
             }
-            
+
 
             int counttop = 0;
             Boolean flagtop = false;
@@ -2030,7 +2031,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                                     //若当前点为在v里面0但是实际上是1
                                     v[nx, ny] = 1;
                                     //更改当前值
-                                    
+
                                     q.Enqueue(new Pointt(nx, ny));
                                     //把这个点加入队列
                                 }
@@ -2068,7 +2069,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                     //if (diff > dths)
                     //    displayPixels[index] = 0xFFFFFFFF;
                     if (diff < dths && bodyIndexPixels[index] != 0x00000000)//黑色
-                        //如果手心距离没有超过阈值且bodeindex检测到了
+                                                                            //如果手心距离没有超过阈值且bodeindex检测到了
                     {
                         ld[i, j] = 1;
                         //其实我还没搞明白到底是在干啥，如果说有直观的感受就好了
@@ -2223,7 +2224,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
-            
+
             this.showMsg.Content = "请选择录入手语的模式！";
             if (this.check1.IsChecked == true && this.check2.IsChecked == true)
                 this.showMsg.Content = "手语的录入模式不能选两种！";
@@ -2238,7 +2239,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
                 recordFlag = true;
                 this.showMsg.Content = "你选择了添加新手语模板：" + gestureName.Text.ToString();
             }
-           
+
         }
 
         private void ButtonEnd_Click(object sender, RoutedEventArgs e)
@@ -2264,7 +2265,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
 
             gestureFeature.clear();
             gestureFeature = null;
-            
+
         }
 
         private void GestureList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2272,7 +2273,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics//大概是骨骼深度数据�
 
         }
 
-        
+
 
 
 

@@ -14,7 +14,7 @@
         <TextBox x:Name="gestureName" HorizontalAlignment="Left" Height="23" Margin="620,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="ButtonStart" Content="start&#xD;&#xA;" HorizontalAlignment="Left" Margin="63,276,0,0" VerticalAlignment="Top" Width="189" Height="46" Click="ButtonStart_Click"/>
         <Button Content="end" HorizontalAlignment="Left" Margin="394,276,0,0" VerticalAlignment="Top" Width="181" Height="46" Click="ButtonEnd_Click"/>
-        <Image x:Name="leftPic" HorizontalAlignment="Left" Height="206" Margin="10,40,0,0" VerticalAlignment="Top" Width="242"/>
+        <Image x:Name="leftPic" HorizontalAlignment="Left" Height="206" Margin="10,40,0,0" VerticalAlignment="Top" Width="229"/>
         <Image x:Name="rightPic" HorizontalAlignment="Left" Height="206" Margin="274,40,0,0" VerticalAlignment="Top" Width="226" RenderTransformOrigin="0.443,0.328"/>
         <Label x:Name="ShowMsg" Content="Label" HorizontalAlignment="Left" Margin="201,347,0,0" VerticalAlignment="Top" Height="45" Width="327"/>
         <Label Content="手语名&#xD;&#xA;" HorizontalAlignment="Left" Margin="531,115,0,0" VerticalAlignment="Top" Width="60"/>

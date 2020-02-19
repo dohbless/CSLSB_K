@@ -8,8 +8,8 @@ using Microsoft.Kinect;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Xml;
-
-
+using System.Drawing;
+using System.Drawing.Imaging;
 
 
 public struct frameDetail 
@@ -104,6 +104,16 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics
                 return count1;
             }
         }
+        public static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                    return codec;
+            }
+            return null;
+        }
         public int CountKeyFrameFeatures 
         {
 
@@ -130,7 +140,8 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics
             }
         }
 
-        public void saveData(string name)
+       
+            public void saveData(string name)
         {
             var xmlDoc = new XmlDocument();
 
@@ -192,6 +203,7 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics
                 
                 int flag=0;                //计算此时黑点的个数
                 int width = handRectShow.GetLength(0);
+                //Console.WriteLine(width+"kk");
                 //handrectshow的行数
                  int height = handRectShow.GetLength(1);
                  for (int a = 0; a < width; a++)
@@ -210,43 +222,68 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics
                 {  //如果黑点的个数和图中像素点个数相同则忽略这一帧的图像
                   
                  //   ksFrame = countFrameWhole;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\frameTool\whole hand\hand_" + countFrameWhole + ".txt"))
+                using (Bitmap bitdata = new Bitmap(width, height))
                 {
-                    
-                    
 
-                    for (int i = 0; i < width; i++)
-                    {
-                        //file.Write("{");
-                        for (int j = 0; j < height; j++)
+
+
+                        for (int i = 0; i < width; i++)
                         {
-                            if (handRectShow[i, j] == 1)
+                            //file.Write("{");
+                            for (int j = 0; j < height; j++)
                             {
-                                handRectShow[i, j] = 255; //白色
-                                file.Write(handRectShow[i, j] + ", ");
-                                //arrtest[i,j] = true;
-                                //file.Write(arrtest[i, j] + ", ");
-                            }
-                            else
-                            {
-                                handRectShow[i, j] = 0;
-                                //arrtest[i, j] = false;
-                                file.Write(0 + ",   ");
-                            }
+                                if (handRectShow[i, j] == 1)
+                                {
+                                    handRectShow[i, j] = 255; //白色
+                                    Color c = Color.FromArgb((int)handRectShow[i, j],
+                                          (int)handRectShow[i, j], (int)handRectShow[i, j]);
+                                    //此方法设置的颜色，其透明度属性alpha=255，完全不透明。
+                                    //通过位byte数组获取每个像素大小        
+                                    bitdata.SetPixel(i, j, c);
+                                    
+                                }
+                                else
+                                {
+                                    handRectShow[i, j] = 0;
+                                    //arrtest[i, j] = false;
+                                    Color c = Color.FromArgb((int)handRectShow[i, j],
+                                       (int)handRectShow[i, j], (int)handRectShow[i, j]);
+                                    //此方法设置的颜色，其透明度属性alpha=255，完全不透明。
+                                    //通过位byte数组获取每个像素大小        
+                                    bitdata.SetPixel(i, j, c);
+                                }
 
+                            }
+                            //file.WriteLine("},");
+                         
                         }
-                        //file.WriteLine("},");
-                        file.WriteLine("}");
-                        //file.WriteLine();
-                    }
-
-                  
 
 
-                    // int countArea = 0;
-                    //   int flag;
+                       
+                   //转成jpg
+                  var eps = new EncoderParameters(1);
+                        var ep = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 85L);
+                        eps.Param[0] = ep;
+                        var jpsEncodeer = GetEncoder(ImageFormat.Jpeg);
+                        //保存图片
+                        string keeppath= "D:\\frametool\\images\\" + countFrameWhole+".Jpeg";
+                        bitdata.Save(keeppath , jpsEncodeer, eps);
+                        //释放资源
+                        //im.Dispose();
+                        ep.Dispose();
+                        eps.Dispose();
 
-                    double m00 = 0.0, m10 = 0.0, m01 = 0.0, m11 = 0.0, m20 = 0.0, m02 = 0.0, m30 = 0.0, m03 = 0.0, m12 = 0.0, m21 = 0.0;
+
+                        //string keep = "D:\\frametool\\images\\" + countFrameWhole;
+                        //bitdata.Save(keep, System.Drawing.Imaging.ImageFormat.Png);
+
+
+
+
+                        // int countArea = 0;
+                        //   int flag;
+
+                        double m00 = 0.0, m10 = 0.0, m01 = 0.0, m11 = 0.0, m20 = 0.0, m02 = 0.0, m30 = 0.0, m03 = 0.0, m12 = 0.0, m21 = 0.0;
                     double xx = 0; double yy = 0;
 
                     double n02, n03, n11, n12, n21, n20, n30;
@@ -374,11 +411,11 @@ namespace Microsoft.Samples.Kinect.BodyIndexBasics
                         //帧在frm中的位置
                     frameAll.Add(frm);//frameAll全局变量 关键帧中的实际位置：countFrameCount
 
-                    file.WriteLine("?");
-                    //string line = "这是第" + countFrameWhole + "的图像数据" + "width=" + handRectShow.GetLength(0) + "height=" + handRectShow.GetLength(1);
-                    //file.WriteLine(line);
-                   // countFrameWhole++;
-                }//using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\whole hand\hand_" + countFrameWhole + ".txt"))
+                        //file.WriteLine("?");
+                        //string line = "这是第" + countFrameWhole + "的图像数据" + "width=" + handRectShow.GetLength(0) + "height=" + handRectShow.GetLength(1);
+                        //file.WriteLine(line);
+                        // countFrameWhole++;
+                    }//using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\whole hand\hand_" + countFrameWhole + ".txt"))
                 }//if
             }
             //  int a = frameAll.Count;
