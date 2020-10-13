@@ -9,3 +9,11 @@ https://www.cnblogs.com/xianhan/p/9146485.html
 https://blog.csdn.net/rookie_wei/article/details/81275663
 #### 简易数据集 
 https://blog.csdn.net/jesmine_gu/article/details/81155787
+## 神经网络训练
+https://blog.csdn.net/dy_guox/article/details/79111949
+### 
+- python xmltocsv.py
+-  Create train data:
+  python generatetfrecords.py --csv_input=data/dataset_train.csv  --output_path=train.record
+  python xmltorecod.py --csv_input=data/dataset_train.csv  --output_path=train.record
+  -(！！！一定要将main里面的路径改为自己的图片们)对应文件夹的images下
