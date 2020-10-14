@@ -16,4 +16,11 @@ https://blog.csdn.net/dy_guox/article/details/79111949
 -  Create train data:
   python generatetfrecords.py --csv_input=data/dataset_train.csv  --output_path=train.record
   python xmltorecod.py --csv_input=data/dataset_train.csv  --output_path=train.record
+   python xmltorecod.py --csv_input=data/test_2.csv  --output_path=test.record
+   python xmltorecod.py --csv_input=data/train_4.csv  --output_path=train.record
   -(！！！一定要将main里面的路径改为自己的图片们)对应文件夹的images下
+ - change config
+ ssd_mobilenet_v1_coco.config 
+ - start train
+ # From the tensorflow/models/research/ directory
+python ./legacy/train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1_coco.config
