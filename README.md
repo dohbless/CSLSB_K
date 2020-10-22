@@ -23,4 +23,5 @@ https://blog.csdn.net/dy_guox/article/details/79111949
  ssd_mobilenet_v1_coco.config 
  - start train
  # From the tensorflow/models/research/ directory
-python ./legacy/train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1_coco.config
+python ./legacy/train.py --logtostderr --train_dir=training2/ --pipeline_config_path=training2/ssd_mobilenet_v1_coco.config
+  --num_train_steps=20000  --num_eval_steps=2000 
