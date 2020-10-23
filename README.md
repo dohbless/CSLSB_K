@@ -25,3 +25,7 @@ https://blog.csdn.net/dy_guox/article/details/79111949
  # From the tensorflow/models/research/ directory
 python ./legacy/train.py --logtostderr --train_dir=training2/ --pipeline_config_path=training2/ssd_mobilenet_v1_coco.config
   --num_train_steps=20000  --num_eval_steps=2000 
+  ### 生成.pb文件
+  python export_inference_graph.py \ --input_type image_tensor \ --pipeline_config_path training2/ssd_mobilenet_v1_coco.config \  --trained_checkpoint_prefix training2/model.ckpt-30000 \  --output_directory hand_graph
+
+### 测试模型并输出
